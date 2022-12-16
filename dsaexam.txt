@@ -672,5 +672,64 @@ int main()
         cout << "Not Balanced";
     return 0;
 }
+-----------------------------------------
+-----------------------------------------
+DFS and BFS
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+void bfs(vector<int> &vis,vector<int>*adj,int element){
+    queue<int> qt;
+    qt.push(element);
+    vis[element]=1;
+    while(!qt.empty()){
+        int front=qt.front();
+        qt.pop();
+        cout<<front<<" ";
+        for(auto it:adj[front]){
+            if(vis[it]==0){
+                qt.push(it);
+                vis[it]=1;
+            }
+        }
+
+    }
+}
+void dfs(vector<int> &vis2,vector<int> *adj,int element,vector<int> &ans){
+    vis2[element]=1;
+    ans.push_back(element);
+    for(auto it:adj[element]){
+        if(vis2[it]==0){
+            dfs(vis2,adj,it,ans);
+        }
+    }
+}
+
+int main(){
+    int n;
+    cin>>n;
+    vector<int> adj[n];
+    int m;
+    cin>>m;
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+
+    }
+    vector<int> vis(n,0);
+    bfs(vis,adj,0);
+    vector<int> vis2(n,0);
+    vector<int> ans;
+    dfs(vis2,adj,0,ans);
+    cout<<endl;
+    for(auto it:ans){
+        cout<<it<<" ";
+    }
+
+    
+    return 0;
+}
 
     
